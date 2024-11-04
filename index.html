@@ -20,7 +20,7 @@
         }
         h1 {
             color: black; /* Change heading color to black */
-            font-size: 4em; /* Increase font size */
+            font-size: 6vw; /* Use viewport width for responsive font size */
             margin-top: -20px; /* Move heading up slightly */
             text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7); /* Optional: Add shadow for depth */
             animation: pulse 3s infinite; /* Set pulse animation with a longer duration */
@@ -38,7 +38,8 @@
         input[type="text"] {
             padding: 10px;
             margin: 10px 0;
-            width: 200px;
+            width: 80%; /* Use a percentage for width */
+            max-width: 300px; /* Set a max width for larger screens */
             border: 1px solid #ccc;
             border-radius: 4px;
         }
@@ -49,9 +50,21 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            width: 80%; /* Use a percentage for width */
+            max-width: 300px; /* Set a max width for larger screens */
         }
         input[type="button"]:hover {
             background-color: #0056b3;
+        }
+
+        /* Media Queries for Additional Responsiveness */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 8vw; /* Adjust font size for smaller screens */
+            }
+            input[type="text"], input[type="button"] {
+                width: 90%; /* Make inputs wider on small screens */
+            }
         }
     </style>
 </head>
