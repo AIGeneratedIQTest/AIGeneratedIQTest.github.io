@@ -7,21 +7,41 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('indexBG.png'); /* Set background image */
-            background-size: cover; /* Cover the entire viewport */
-            background-position: center; /* Center the image */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
             margin: 0;
             color: white; /* Change text color for better contrast */
+            overflow: hidden; /* Hide overflow for video */
+            display: flex; /* Use flexbox for centering */
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+            position: relative; /* Allow absolute positioning for children */
+        }
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the entire viewport */
+            z-index: -1; /* Send video to background */
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            z-index: 0; /* Ensure overlay is above video but below text */
+        }
+        .content {
+            z-index: 1; /* Ensure content is above overlay */
+            text-align: center; /* Center text */
         }
         h1 {
             color: black; /* Change heading color to black */
             font-size: 6vw; /* Use viewport width for responsive font size */
-            margin-top: -20px; /* Move heading up slightly */
+            margin: 0; /* Reset margins for consistent spacing */
             text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7); /* Optional: Add shadow for depth */
             animation: pulse 3s infinite; /* Set pulse animation with a longer duration */
         }
@@ -35,26 +55,26 @@
             }
         }
 
-        input[type="text"] {
-            padding: 10px;
-            margin: 10px 0;
+        input[type="text"], input[type="button"] {
+            display: block; /* Force elements to stack vertically */
             width: 80%; /* Use a percentage for width */
             max-width: 300px; /* Set a max width for larger screens */
+            margin: 10px auto; /* Center the elements and add vertical margin */
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            z-index: 1; /* Ensure inputs are above overlay */
+            position: relative; /* Make sure they're positioned above the overlay */
         }
+
         input[type="button"] {
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 80%; /* Use a percentage for width */
-            max-width: 300px; /* Set a max width for larger screens */
+            background-color: #007bff; /* Button background color */
+            color: white; /* Button text color */
+            border: none; /* No border for button */
+            cursor: pointer; /* Pointer cursor on hover */
         }
         input[type="button"]:hover {
-            background-color: #0056b3;
+            background-color: #0056b3; /* Button hover color */
         }
 
         /* Media Queries for Additional Responsiveness */
@@ -69,9 +89,16 @@
     </style>
 </head>
 <body>
-    <h1>AI Generated IQ Test</h1>
-    <input type="text" id="userName" placeholder="Enter your name" required>
-    <input type="button" value="Start Free IQ Test" onclick="startTest()">
+    <video autoplay muted loop class="video-background">
+        <source src="indexBrain.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="overlay"></div> <!-- Overlay for improved text visibility -->
+    <div class="content">
+        <h1>AI Generated IQ Test</h1>
+        <input type="text" id="userName" placeholder="Enter your name" required>
+        <input type="button" value="Start Free IQ Test" onclick="startTest()">
+    </div>
 
     <script>
         function startTest() {
